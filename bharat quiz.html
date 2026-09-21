@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bharat Quest 🇮🇳</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+    background:
+        linear-gradient(
+            180deg,
+            #08152f,
+            #102f4c 45%,
+            #0c442f
+        );
+}
+
+/* =====================================================
+   COMMON
+===================================================== */
+
+.screen{
+    display:none;
+    min-height:100vh;
+    padding:20px;
+}
+
+.screen.active{
+    display:flex;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+}
+
+/* =====================================================
+   HOME
+===================================================== */
+
+#home{
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.home-card{
+    width:100%;
+    max-width:850px;
+    padding:40px 25px;
+}
+
+.india-symbol{
+    font-size:90px;
+    animation:float 2.5s infinite ease-in-out;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+.game-title{
+    font-size:65px;
+    font-weight:900;
+    margin:10px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff9933,
+            white,
+            #138808
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.tagline{
+    color:#c9d5e8;
+    font-size:20px;
+    margin-bottom:35px;
+}
+
+.play-btn{
+    padding:18px 60px;
+    border:none;
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9933,
+            #ff4d4d
+        );
+
+    color:white;
+    font-size:23px;
+    font-weight:bold;
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px rgba(255,100,50,.4);
+
+    transition:.25s;
+}
+
+.play-btn:hover{
+    transform:scale(1.08);
+}
+
+.home-info{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.info-box{
+    background:rgba(255,255,255,.08);
+    padding:15px 20px;
+    border-radius:15px;
+}
+
+/* =====================================================
+   MAP
+===================================================== */
+
+#map{
+    justify-content:center;
+    align-items:center;
+}
+
+.map-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.map-header h1{
+    font-size:42px;
+}
+
+.map-header p{
+    color:#b9c8dc;
+    margin-top:8px;
+}
+
+.player-stats{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.stat{
+    padding:10px 16px;
+    border-radius:25px;
+    background:rgba(255,255,255,.1);
+    font-weight:bold;
+}
+
+.coin{
+    color:#ffd32a;
+}
+
+.xp{
+    color:#70a1ff;
+}
+
+.rank{
+    color:#7bed9f;
+}
+
+/* MAP */
+
+.india-map{
+    position:relative;
+    width:100%;
+    max-width:800px;
+    height:600px;
+    margin:auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #174f3b,
+            #23694a
+        );
+
+    border-radius:35px;
+
+    border:
+        3px solid
+        rgba(255,255,255,.15);
+
+    overflow:hidden;
+
+    box-shadow:
+        inset 0 0 80px rgba(0,0,0,.25),
+        0 20px 60px rgba(0,0,0,.3);
+}
+
+/* Decorative map shapes */
+
+.cloud{
+    position:absolute;
+    color:rgba(255,255,255,.12);
+    font-size:50px;
+}
+
+.cloud1{
+    top:30px;
+    left:50px;
+}
+
+.cloud2{
+    top:100px;
+    right:50px;
+}
+
+.mountain{
+    position:absolute;
+    color:rgba(255,255,255,.1);
+    font-size:90px;
+}
+
+.m1{
+    bottom:30px;
+    left:40px;
+}
+
+.m2{
+    bottom:20px;
+    right:30px;
+}
+
+/* MAP LOCATIONS */
+
+.location{
+    position:absolute;
+    width:130px;
+    padding:15px 8px;
+    border-radius:20px;
+    text-align:center;
+
+    background:#17284d;
+
+    border:
+        2px solid
+        rgba(255,255,255,.15);
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.25);
+}
+
+.location:hover{
+    transform:scale(1.08);
+}
+
+.location-icon{
+    font-size:38px;
+}
+
+.location-name{
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.location-level{
+    font-size:12px;
+    color:#aebbd1;
+    margin-top:4px;
+}
+
+.location.locked{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+.location.completed{
+    background:
+        linear-gradient(
+            135deg,
+            #0e7a45,
+            #16a85c
+        );
+}
+
+.location.current{
+    background:
+        linear-gradient(
+            135deg,
+            #ff9933,
+            #e74c3c
+        );
+
+    animation:pulse 1.7s infinite;
+}
+
+@keyframes pulse{
+
+    50%{
+        box-shadow:
+            0 0 30px rgba(255,153,51,.7);
+    }
+}
+
+/* Positions */
+
+.maharashtra{
+    left:25%;
+    top:45%;
+}
+
+.gujarat{
+    left:12%;
+    top:30%;
+}
+
+.rajasthan{
+    left:27%;
+    top:13%;
+}
+
+.delhi{
+    left:47%;
+    top:18%;
+}
+
+.up{
+    left:62%;
+    top:28%;
+}
+
+.south{
+    left:42%;
+    top:68%;
+}
+
+/* =====================================================
+   GAME
+===================================================== */
+
+#game{
+    justify-content:center;
+    align-items:center;
+}
+
+.game-container{
+    max-width:850px;
+    width:100%;
+    margin:auto;
+}
+
+.game-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:15px;
+}
+
+.game-stat{
+    background:rgba(255,255,255,.1);
+    padding:10px 15px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.hearts{
+    color:#ff4757;
+}
+
+.timer{
+    color:#ffd32a;
+}
+
+.streak{
+    color:#ff6b81;
+}
+
+/* MISSION */
+
+.mission-title{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.mission-title small{
+    color:#aebbd1;
+}
+
+.mission-title h1{
+    margin-top:5px;
+}
+
+/* PROGRESS */
+
+.progress-area{
+    width:100%;
+    height:10px;
+    background:#07152d;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.progress{
+    height:100%;
+    width:0;
+    background:
+        linear-gradient(
+            90deg,
+            #ff9933,
+            #ffd32a,
+            #138808
+        );
+
+    transition:.4s;
+}
+
+/* QUESTION CARD */
+
+.question-card{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.1),
+            rgba(255,255,255,.05)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+    padding:30px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+.question-type{
+    color:#ffbd69;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.question{
+    font-size:28px;
+    line-height:1.4;
+    margin-bottom:25px;
+}
+
+/* ANSWERS */
+
+.answers{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.answer{
+    min-height:70px;
+
+    border:
+        2px solid
+        #35476b;
+
+    border-radius:17px;
+
+    background:#17284d;
+
+    color:white;
+
+    padding:15px;
+
+    text-align:left;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.answer:hover{
+    border-color:#ff9933;
+    transform:translateY(-3px);
+}
+
+.answer.correct{
+    background:#159957;
+    border-color:#7bed9f;
+    animation:correct .4s;
+}
+
+.answer.wrong{
+    background:#c0392b;
+    border-color:#ff6b81;
+    animation:shake .4s;
+}
+
+.answer:disabled{
+    cursor:default;
+}
+
+@keyframes correct{
+
+    50%{
+        transform:scale(1.04);
+    }
+
+}
+
+@keyframes shake{
+
+    20%{
+        transform:translateX(-8px);
+    }
+
+    40%{
+        transform:translateX(8px);
+    }
+
+    60%{
+        transform:translateX(-8px);
+    }
+
+}
+
+/* POWER UPS */
+
+.powerups{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:20px;
+}
+
+.power-btn{
+    padding:10px 16px;
+    border:none;
+    border-radius:15px;
+    background:#253961;
+    color:white;
+    cursor:pointer;
+}
+
+.power-btn:hover{
+    background:#34517d;
+}
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+#result{
+    justify-content:center;
+    align-items:center;
+}
+
+.result-card{
+    text-align:center;
+    width:100%;
+    max-width:600px;
+
+    padding:45px 25px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+}
+
+.result-icon{
+    font-size:90px;
+    animation:float 2s infinite;
+}
+
+.result-card h1{
+    font-size:42px;
+    margin:15px;
+}
+
+.final-score{
+    font-size:65px;
+    font-weight:bold;
+    color:#ffd32a;
+}
+
+.result-stats{
+    margin:20px;
+    line-height:2;
+    color:#c8d3e7;
+    font-size:19px;
+}
+
+.result-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.result-btn{
+    padding:14px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff9933;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.secondary{
+    background:#26375d;
+}
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+    position:fixed;
+    inset:0;
+
+    background:
+        rgba(0,0,0,.75);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:100;
+}
+
+.popup-card{
+    width:90%;
+    max-width:400px;
+
+    background:#17284d;
+
+    border-radius:25px;
+
+    padding:35px;
+
+    text-align:center;
+
+    border:
+        2px solid
+        rgba(255,255,255,.15);
+}
+
+.popup-icon{
+    font-size:60px;
+}
+
+.popup-card h2{
+    margin:15px 0;
+}
+
+.popup-card p{
+    color:#bdc9dd;
+    line-height:1.5;
+}
+
+.popup-btn{
+    margin-top:20px;
+    padding:12px 30px;
+    border:none;
+    border-radius:20px;
+    background:#ff9933;
+    color:white;
+    cursor:pointer;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px){
+
+    .game-title{
+        font-size:42px;
+    }
+
+    .india-symbol{
+        font-size:70px;
+    }
+
+    .india-map{
+        height:550px;
+    }
+
+    .location{
+        width:105px;
+        padding:10px 5px;
+    }
+
+    .location-icon{
+        font-size:30px;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .question{
+        font-size:21px;
+    }
+
+    .question-card{
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="screen active">
+
+<div class="home-card">
+
+    <div class="india-symbol">
+        🇮🇳
+    </div>
+
+    <h1 class="game-title">
+        BHARAT QUEST
+    </h1>
+
+    <p class="tagline">
+        Explore India • Solve Missions • Become a Bharat Master
+    </p>
+
+    <button class="play-btn"
+            onclick="openMap()">
+
+        🎮 START ADVENTURE
+
+    </button>
+
+    <div class="home-info">
+
+        <div class="info-box">
+            🗺️ Explore India
+        </div>
+
+        <div class="info-box">
+            🪙 Collect Coins
+        </div>
+
+        <div class="info-box">
+            ⭐ Earn XP
+        </div>
+
+        <div class="info-box">
+            🏆 Become Master
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP
+===================================================== -->
+
+<section id="map" class="screen">
+
+<div class="container">
+
+    <div class="map-header">
+
+        <h1>
+            🗺️ INDIA ADVENTURE
+        </h1>
+
+        <p>
+            Choose your destination
+        </p>
+
+    </div>
+
+
+    <div class="player-stats">
+
+        <div class="stat">
+            ❤️ <span id="mapLives">3</span>
+        </div>
+
+        <div class="stat coin">
+            🪙 <span id="mapCoins">0</span>
+        </div>
+
+        <div class="stat xp">
+            ⭐ <span id="mapXP">0</span> XP
+        </div>
+
+        <div class="stat rank">
+            🏆 <span id="mapRank">Explorer</span>
+        </div>
+
+    </div>
+
+
+    <div class="india-map">
+
+        <div class="cloud cloud1">
+            ☁️
+        </div>
+
+        <div class="cloud cloud2">
+            ☁️
+        </div>
+
+        <div class="mountain m1">
+            ⛰️
+        </div>
+
+        <div class="mountain m2">
+            🏔️
+        </div>
+
+
+        <!-- Gujarat -->
+
+        <div class="location gujarat"
+             id="location2"
+             onclick="chooseLocation(2)">
+
+            <div class="location-icon">
+                🦁
+            </div>
+
+            <div class="location-name">
+                Gujarat
+            </div>
+
+            <div class="location-level">
+                Level 2
+            </div>
+
+        </div>
+
+
+        <!-- Rajasthan -->
+
+        <div class="location rajasthan"
+             id="location3"
+             onclick="chooseLocation(3)">
+
+            <div class="location-icon">
+                🏰
+            </div>
+
+            <div class="location-name">
+                Rajasthan
+            </div>
+
+            <div class="location-level">
+                Level 3
+            </div>
+
+        </div>
+
+
+        <!-- Delhi -->
+
+        <div class="location delhi"
+             id="location4"
+             onclick="chooseLocation(4)">
+
+            <div class="location-icon">
+                🏛️
+            </div>
+
+            <div class="location-name">
+                Delhi
+            </div>
+
+            <div class="location-level">
+                Level 4
+            </div>
+
+        </div>
+
+
+        <!-- UP -->
+
+        <div class="location up"
+             id="location5"
+             onclick="chooseLocation(5)">
+
+            <div class="location-icon">
+                🕌
+            </div>
+
+            <div class="location-name">
+                Uttar Pradesh
+            </div>
+
+            <div class="location-level">
+                Level 5
+            </div>
+
+        </div>
+
+
+        <!-- Maharashtra -->
+
+        <div class="location maharashtra"
+             id="location1"
+             onclick="chooseLocation(1)">
+
+            <div class="location-icon">
+                🏯
+            </div>
+
+            <div class="location-name">
+                Maharashtra
+            </div>
+
+            <div class="location-level">
+                Level 1
+            </div>
+
+        </div>
+
+
+        <!-- South India -->
+
+        <div class="location south"
+             id="location6"
+             onclick="chooseLocation(6)">
+
+            <div class="location-icon">
+                🛕
+            </div>
+
+            <div class="location-name">
+                South India
+            </div>
+
+            <div class="location-level">
+                Level 6
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     GAME
+===================================================== -->
+
+<section id="game" class="screen">
+
+<div class="game-container">
+
+
+    <div class="game-top">
+
+        <div class="game-stat hearts">
+            ❤️ <span id="lives">3</span>
+        </div>
+
+        <div class="game-stat">
+            🪙 <span id="coins">0</span>
+        </div>
+
+        <div class="game-stat">
+            ⭐ <span id="xp">0</span>
+        </div>
+
+        <div class="game-stat streak">
+            🔥 <span id="streak">0</span>
+        </div>
+
+        <div class="game-stat timer">
+            ⏱️ <span id="timer">15</span>
+        </div>
+
+    </div>
+
+
+    <div class="mission-title">
+
+        <small id="region">
+            Maharashtra
+        </small>
+
+        <h1 id="missionTitle">
+            The Maharashtra Mission
+        </h1>
+
+    </div>
+
+
+    <div class="progress-area">
+
+        <div class="progress"
+             id="progress">
+
+        </div>
+
+    </div>
+
+
+    <div class="question-card">
+
+        <div class="question-type"
+             id="questionType">
+
+            🎯 KNOWLEDGE CHALLENGE
+
+        </div>
+
+
+        <h2 class="question"
+            id="question">
+
+            Question
+
+        </h2>
+
+
+        <div class="answers"
+             id="answers">
+
+        </div>
+
+
+        <div class="powerups">
+
+            <button class="power-btn"
+                    id="fiftyBtn"
+                    onclick="useFiftyFifty()">
+
+                ✂️ 50/50
+
+            </button>
+
+            <button class="power-btn"
+                    onclick="addTime()">
+
+                ⏱️ +5 Sec
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<section id="result" class="screen">
+
+<div class="result-card">
+
+    <div class="result-icon"
+         id="resultIcon">
+
+        🏆
+
+    </div>
+
+    <h1 id="resultTitle">
+        Mission Complete!
+    </h1>
+
+    <div class="final-score">
+
+        <span id="finalScore">
+            0
+        </span>/10
+
+    </div>
+
+
+    <div class="result-stats">
+
+        ⭐ XP Earned:
+        <b id="earnedXP">0</b>
+
+        <br>
+
+        🪙 Coins Earned:
+        <b id="earnedCoins">0</b>
+
+        <br>
+
+        🔥 Best Streak:
+        <b id="bestStreak">0</b>
+
+        <br>
+
+        🏆 Rank:
+        <b id="finalRank">Explorer</b>
+
+    </div>
+
+
+    <div class="result-buttons">
+
+        <button class="result-btn"
+                onclick="openMap()">
+
+            🗺️ INDIA MAP
+
+        </button>
+
+        <button class="result-btn secondary"
+                onclick="restartMission()">
+
+            🔄 PLAY AGAIN
+
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div class="popup"
+     id="popup">
+
+<div class="popup-card">
+
+    <div class="popup-icon"
+         id="popupIcon">
+
+        🔒
+
+    </div>
+
+    <h2 id="popupTitle">
+        Level Locked
+    </h2>
+
+    <p id="popupText">
+        Complete the previous mission.
+    </p>
+
+    <button class="popup-btn"
+            onclick="closePopup()">
+
+        OK
+
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   QUESTION DATABASE
+===================================================== */
+
+const database = {
+
+1:[
+{
+type:"🎯 GENERAL KNOWLEDGE",
+q:"Which city is the capital of Maharashtra?",
+a:["Mumbai","Pune","Nashik","Nagpur"],
+c:"Mumbai"
+},
+{
+type:"🏰 MAHARASHTRA",
+q:"Which fort is associated with Chhatrapati Shivaji Maharaj?",
+a:["Raigad","Red Fort","Amber Fort","Golconda"],
+c:"Raigad"
+},
+{
+type:"🍛 FOOD",
+q:"Which Maharashtrian dish is made from gram flour?",
+a:["Dhokla","Puran Poli","Misal Pav","Patra"],
+c:"Puran Poli"
+},
+{
+type:"🌊 GEOGRAPHY",
+q:"Which sea lies west of Maharashtra?",
+a:["Arabian Sea","Bay of Bengal","Red Sea","Black Sea"],
+c:"Arabian Sea"
+},
+{
+type:"🏙️ CITY",
+q:"Which city is known as the Oxford of the East?",
+a:["Pune","Mumbai","Nagpur","Kolhapur"],
+c:"Pune"
+},
+{
+type:"🎭 CULTURE",
+q:"Lavani is a traditional dance form of which state?",
+a:["Maharashtra","Punjab","Kerala","Assam"],
+c:"Maharashtra"
+},
+{
+type:"🏞️ NATURE",
+q:"Which famous hill station is in Maharashtra?",
+a:["Mahabaleshwar","Manali","Shimla","Ooty"],
+c:"Mahabaleshwar"
+},
+{
+type:"🏏 SPORTS",
+q:"Which famous cricket stadium is located in Mumbai?",
+a:["Wankhede Stadium","Eden Gardens","Chepauk","Chinnaswamy"],
+c:"Wankhede Stadium"
+},
+{
+type:"🎬 ENTERTAINMENT",
+q:"Bollywood is mainly associated with which Indian city?",
+a:["Mumbai","Pune","Delhi","Jaipur"],
+c:"Mumbai"
+},
+{
+type:"🧠 CHALLENGE",
+q:"What is 25 × 4?",
+a:["50","75","100","125"],
+c:"100"
+},
+{
+type:"🗺️ MAP",
+q:"Which mountain range passes through Maharashtra?",
+a:["Western Ghats","Himalayas","Aravalli","Vindhya"],
+c:"Western Ghats"
+},
+{
+type:"🎯 BONUS",
+q:"Which is the largest city in Maharashtra by population?",
+a:["Mumbai","Pune","Nagpur","Nashik"],
+c:"Mumbai"
+}
+],
+
+2:[
+{
+type:"🦁 WILDLIFE",
+q:"Gir National Park is famous for which animal?",
+a:["Asiatic Lion","Tiger","Elephant","Rhino"],
+c:"Asiatic Lion"
+},
+{
+type:"🧵 CULTURE",
+q:"Which Indian state is famous for Bandhani textiles?",
+a:["Gujarat","Kerala","Goa","Bihar"],
+c:"Gujarat"
+},
+{
+type:"🏛️ HISTORY",
+q:"The Statue of Unity is located in which state?",
+a:["Gujarat","Rajasthan","Maharashtra","Punjab"],
+c:"Gujarat"
+},
+{
+type:"🍽️ FOOD",
+q:"Dhokla is strongly associated with which state?",
+a:["Gujarat","Tamil Nadu","Assam","Haryana"],
+c:"Gujarat"
+},
+{
+type:"🌊 GEOGRAPHY",
+q:"Which sea borders Gujarat?",
+a:["Arabian Sea","Bay of Bengal","Red Sea","Caspian Sea"],
+c:"Arabian Sea"
+},
+{
+type:"🏙️ CITY",
+q:"Which city is known as India's Diamond City?",
+a:["Surat","Ahmedabad","Rajkot","Vadodara"],
+c:"Surat"
+},
+{
+type:"🏭 INDUSTRY",
+q:"Which city is a major industrial centre of Gujarat?",
+a:["Ahmedabad","Shimla","Kochi","Patna"],
+c:"Ahmedabad"
+},
+{
+type:"🦁 NATURE",
+q:"The Asiatic lion is mainly found in which Indian state?",
+a:["Gujarat","Kerala","Punjab","Odisha"],
+c:"Gujarat"
+},
+{
+type:"🪁 FESTIVAL",
+q:"Which festival is famous for kite flying in Gujarat?",
+a:["Uttarayan","Onam","Bihu","Pongal"],
+c:"Uttarayan"
+},
+{
+type:"🧠 MATH",
+q:"What is 18 × 5?",
+a:["80","90","100","110"],
+c:"90"
+},
+{
+type:"🏛️ HISTORY",
+q:"Sabarmati Ashram is located in which city?",
+a:["Ahmedabad","Surat","Rajkot","Bhuj"],
+c:"Ahmedabad"
+},
+{
+type:"🌍 GEOGRAPHY",
+q:"Which desert region is found in northern Gujarat?",
+a:["Rann of Kutch","Thar Desert","Deccan Plateau","Cholistan"],
+c:"Rann of Kutch"
+}
+],
+
+3:[
+{
+type:"🏰 HISTORY",
+q:"Which city is famous for the Amber Fort?",
+a:["Jaipur","Jodhpur","Udaipur","Bikaner"],
+c:"Jaipur"
+},
+{
+type:"🏜️ GEOGRAPHY",
+q:"Which desert is mainly located in Rajasthan?",
+a:["Thar Desert","Sahara","Gobi","Atacama"],
+c:"Thar Desert"
+},
+{
+type:"🏯 ARCHITECTURE",
+q:"Hawa Mahal is located in which city?",
+a:["Jaipur","Delhi","Agra","Jaisalmer"],
+c:"Jaipur"
+},
+{
+type:"👑 HISTORY",
+q:"Which city is known as the Blue City?",
+a:["Jodhpur","Jaipur","Udaipur","Kota"],
+c:"Jodhpur"
+},
+{
+type:"🌊 LAKES",
+q:"Udaipur is famous for its?",
+a:["Lakes","Deserts","Beaches","Glaciers"],
+c:"Lakes"
+},
+{
+type:"🐪 CULTURE",
+q:"Which animal is strongly associated with desert travel in Rajasthan?",
+a:["Camel","Yak","Reindeer","Llama"],
+c:"Camel"
+},
+{
+type:"🎨 ART",
+q:"Rajasthan is famous for which type of traditional painting?",
+a:["Miniature painting","Madhubani","Warli","Pattachitra"],
+c:"Miniature painting"
+},
+{
+type:"🎵 MUSIC",
+q:"Which instruments are commonly associated with Rajasthani folk music?",
+a:["Ravanhatha","Sitar only","Veena only","Piano"],
+c:"Ravanhatha"
+},
+{
+type:"🏰 FORT",
+q:"Mehrangarh Fort is located in?",
+a:["Jodhpur","Jaipur","Ajmer","Kota"],
+c:"Jodhpur"
+},
+{
+type:"🧠 MATH",
+q:"What is 15²?",
+a:["200","215","225","250"],
+c:"225"
+},
+{
+type:"🌵 NATURE",
+q:"Which plant is well adapted to desert conditions?",
+a:["Cactus","Lotus","Mango","Fern"],
+c:"Cactus"
+},
+{
+type:"🏜️ BONUS",
+q:"Jaisalmer is popularly known as the?",
+a:["Golden City","Blue City","Pink City","White City"],
+c:"Golden City"
+}
+],
+
+4:[
+{
+type:"🏛️ HISTORY",
+q:"The Red Fort is located in which city?",
+a:["Delhi","Mumbai","Jaipur","Lucknow"],
+c:"Delhi"
+},
+{
+type:"🇮🇳 INDIA",
+q:"India's national parliament is located in?",
+a:["New Delhi","Mumbai","Kolkata","Chennai"],
+c:"New Delhi"
+},
+{
+type:"🕌 MONUMENT",
+q:"India Gate is located in?",
+a:["New Delhi","Agra","Hyderabad","Pune"],
+c:"New Delhi"
+},
+{
+type:"📚 EDUCATION",
+q:"Which institution is located in New Delhi?",
+a:["IIT Delhi","IIT Bombay","IIT Madras","IIT Kanpur"],
+c:"IIT Delhi"
+},
+{
+type:"🏛️ GOVERNMENT",
+q:"The Supreme Court of India is located in?",
+a:["New Delhi","Mumbai","Kolkata","Bengaluru"],
+c:"New Delhi"
+},
+{
+type:"🧠 SCIENCE",
+q:"What is the chemical symbol for oxygen?",
+a:["O","Ox","Og","O2"],
+c:"O"
+},
+{
+type:"🚇 TRANSPORT",
+q:"Delhi is famous for having a large?",
+a:["Metro network","Ocean port","Desert railway","Volcano"],
+c:"Metro network"
+},
+{
+type:"🌳 NATURE",
+q:"Which famous garden is in Delhi?",
+a:["Lodhi Garden","Cubbon Park","Marine Drive","Mughal Garden only"],
+c:"Lodhi Garden"
+},
+{
+type:"🏰 HISTORY",
+q:"Qutub Minar is located in?",
+a:["Delhi","Agra","Jaipur","Patna"],
+c:"Delhi"
+},
+{
+type:"🧮 MATH",
+q:"What is 144 ÷ 12?",
+a:["10","11","12","14"],
+c:"12"
+},
+{
+type:"🎯 LOGIC",
+q:"If today is Monday, what day is after 3 days?",
+a:["Tuesday","Wednesday","Thursday","Friday"],
+c:"Thursday"
+},
+{
+type:"🇮🇳 BONUS",
+q:"Which colour is at the top of India's national flag?",
+a:["Saffron","White","Green","Blue"],
+c:"Saffron"
+}
+],
+
+5:[
+{
+type:"🕌 MONUMENT",
+q:"The Taj Mahal is located in which city?",
+a:["Agra","Delhi","Jaipur","Lucknow"],
+c:"Agra"
+},
+{
+type:"🏛️ HISTORY",
+q:"The Taj Mahal was built by?",
+a:["Shah Jahan","Akbar","Aurangzeb","Babur"],
+c:"Shah Jahan"
+},
+{
+type:"🌊 GEOGRAPHY",
+q:"Which river flows through Agra?",
+a:["Yamuna","Ganga","Godavari","Narmada"],
+c:"Yamuna"
+},
+{
+type:"🏰 HISTORY",
+q:"Agra Fort is mainly built using?",
+a:["Red sandstone","Wood","Glass","Marble only"],
+c:"Red sandstone"
+},
+{
+type:"🕌 ARCHITECTURE",
+q:"The Taj Mahal is an example of?",
+a:["Mughal architecture","Gothic architecture","Dravidian architecture","Modern architecture"],
+c:"Mughal architecture"
+},
+{
+type:"🌍 GEOGRAPHY",
+q:"Which river is one of India's major rivers?",
+a:["Ganga","Thames","Nile","Amazon"],
+c:"Ganga"
+},
+{
+type:"🧠 SCIENCE",
+q:"Which planet is known as the Red Planet?",
+a:["Mars","Venus","Jupiter","Mercury"],
+c:"Mars"
+},
+{
+type:"💻 COMPUTER",
+q:"What does CPU stand for?",
+a:["Central Processing Unit","Computer Personal Unit","Central Program Utility","Computer Processing Utility"],
+c:"Central Processing Unit"
+},
+{
+type:"📐 MATH",
+q:"What is the square root of 196?",
+a:["12","13","14","16"],
+c:"14"
+},
+{
+type:"🧠 LOGIC",
+q:"Which number comes next: 2, 4, 8, 16, ?",
+a:["20","24","32","36"],
+c:"32"
+},
+{
+type:"🌍 INDIA",
+q:"Which state is famous for the Taj Mahal?",
+a:["Uttar Pradesh","Rajasthan","Gujarat","Maharashtra"],
+c:"Uttar Pradesh"
+},
+{
+type:"🎯 FINAL",
+q:"Which city is known as the City of Nawabs?",
+a:["Lucknow","Agra","Kanpur","Varanasi"],
+c:"Lucknow"
+}
+],
+
+6:[
+{
+type:"🛕 CULTURE",
+q:"Brihadeeswarar Temple is located in which state?",
+a:["Tamil Nadu","Kerala","Karnataka","Andhra Pradesh"],
+c:"Tamil Nadu"
+},
+{
+type:"🌴 NATURE",
+q:"Which state is famous for its backwaters?",
+a:["Kerala","Punjab","Bihar","Rajasthan"],
+c:"Kerala"
+},
+{
+type:"🎭 FESTIVAL",
+q:"Onam is mainly celebrated in?",
+a:["Kerala","Gujarat","Assam","Goa"],
+c:"Kerala"
+},
+{
+type:"🌾 AGRICULTURE",
+q:"Which crop is strongly associated with Tamil Nadu?",
+a:["Rice","Apple","Saffron","Almond"],
+c:"Rice"
+},
+{
+type:"🏙️ CITY",
+q:"Bengaluru is often called India's?",
+a:["Silicon Valley","Pink City","Blue City","Golden City"],
+c:"Silicon Valley"
+},
+{
+type:"🌊 SEA",
+q:"Which ocean is south of India?",
+a:["Indian Ocean","Atlantic Ocean","Arctic Ocean","Pacific Ocean"],
+c:"Indian Ocean"
+},
+{
+type:"🛕 TEMPLE",
+q:"Meenakshi Temple is located in?",
+a:["Madurai","Chennai","Kochi","Mysuru"],
+c:"Madurai"
+},
+{
+type:"🐘 WILDLIFE",
+q:"Which animal is associated with Kerala temple festivals?",
+a:["Elephant","Camel","Yak","Lion"],
+c:"Elephant"
+},
+{
+type:"🎨 CULTURE",
+q:"Kathakali is a traditional art form from?",
+a:["Kerala","Maharashtra","Punjab","Rajasthan"],
+c:"Kerala"
+},
+{
+type:"🧠 MATH",
+q:"What is 17 × 6?",
+a:["92","102","112","122"],
+c:"102"
+},
+{
+type:"💻 TECHNOLOGY",
+q:"Which language is commonly used for web programming?",
+a:["JavaScript","HTML only","CSS only","SQL only"],
+c:"JavaScript"
+},
+{
+type:"🏆 FINAL",
+q:"Which is the southernmost state among these?",
+a:["Kerala","Punjab","Haryana","Rajasthan"],
+c:"Kerala"
+}
+]
+
+};
+
+
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
+
+let unlocked =
+    Number(localStorage.getItem("bharatUnlocked")) || 1;
+
+let totalXP =
+    Number(localStorage.getItem("bharatXP")) || 0;
+
+let totalCoins =
+    Number(localStorage.getItem("bharatCoins")) || 0;
+
+let currentLevel = 1;
+
+let quizQuestions = [];
+
+let questionIndex = 0;
+
+let score = 0;
+
+let lives = 3;
+
+let streak = 0;
+
+let bestStreak = 0;
+
+let time = 15;
+
+let timer;
+
+let fiftyUsed = false;
+
+
+/* =====================================================
+   SCREEN FUNCTION
+===================================================== */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+}
+
+
+/* =====================================================
+   OPEN MAP
+===================================================== */
+
+function openMap(){
+
+    updateMapStats();
+
+    updateMapLocations();
+
+    showScreen("map");
+
+}
+
+
+/* =====================================================
+   MAP STATS
+===================================================== */
+
+function updateMapStats(){
+
+    document.getElementById("mapCoins")
+        .textContent = totalCoins;
+
+    document.getElementById("mapXP")
+        .textContent = totalXP;
+
+    document.getElementById("mapRank")
+        .textContent = getRank();
+
+}
+
+
+/* =====================================================
+   RANK
+===================================================== */
+
+function getRank(){
+
+    if(totalXP >= 1000)
+        return "Bharat Legend";
+
+    if(totalXP >= 700)
+        return "Bharat Master";
+
+    if(totalXP >= 450)
+        return "Champion";
+
+    if(totalXP >= 250)
+        return "Expert";
+
+    if(totalXP >= 100)
+        return "Adventurer";
+
+    return "Explorer";
+
+}
+
+
+/* =====================================================
+   UPDATE LOCATIONS
+===================================================== */
+
+function updateMapLocations(){
+
+    for(let i=1;i<=6;i++){
+
+        const location =
+            document.getElementById(
+                "location"+i
+            );
+
+        location.classList.remove(
+            "locked",
+            "current",
+            "completed"
+        );
+
+
+        if(i < unlocked){
+
+            location.classList.add(
+                "completed"
+            );
+
+        }
+
+        else if(i === unlocked){
+
+            location.classList.add(
+                "current"
+            );
+
+        }
+
+        else{
+
+            location.classList.add(
+                "locked"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   CHOOSE LOCATION
+===================================================== */
+
+function chooseLocation(level){
+
+    if(level > unlocked){
+
+        showPopup(
+            "🔒 Destination Locked",
+            "Complete the previous destination to unlock this region."
+        );
+
+        return;
+
+    }
+
+    startMission(level);
+
+}
+
+
+/* =====================================================
+   START MISSION
+===================================================== */
+
+function startMission(level){
+
+    currentLevel = level;
+
+    quizQuestions =
+        [...database[level]]
+        .sort(
+            ()=>Math.random() - 0.5
+        )
+        .slice(0,10);
+
+    questionIndex = 0;
+
+    score = 0;
+
+    lives = 3;
+
+    streak = 0;
+
+    bestStreak = 0;
+
+    fiftyUsed = false;
+
+
+    document.getElementById("fiftyBtn")
+        .disabled = false;
+
+
+    showScreen("game");
+
+    updateGameStats();
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   REGION NAME
+===================================================== */
+
+function getRegion(){
+
+    const names = {
+
+        1:"Maharashtra",
+        2:"Gujarat",
+        3:"Rajasthan",
+        4:"Delhi",
+        5:"Uttar Pradesh",
+        6:"South India"
+
+    };
+
+    return names[currentLevel];
+
+}
+
+
+/* =====================================================
+   SHOW QUESTION
+===================================================== */
+
+function showQuestion(){
+
+    clearInterval(timer);
+
+    time = 15;
+
+    document.getElementById("timer")
+        .textContent = time;
+
+
+    const question =
+        quizQuestions[questionIndex];
+
+
+    document.getElementById("region")
+        .textContent =
+        "🇮🇳 " + getRegion();
+
+
+    document.getElementById("missionTitle")
+        .textContent =
+        "Mission " + currentLevel;
+
+
+    document.getElementById("questionType")
+        .textContent =
+        question.type;
+
+
+    document.getElementById("question")
+        .textContent =
+        question.q;
+
+
+    document.getElementById("progress")
+        .style.width =
+        ((questionIndex + 1) /
+        quizQuestions.length * 100) + "%";
+
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+
+    /*
+       Randomize answer positions
+    */
+
+    const shuffled =
+        [...question.a]
+        .sort(
+            ()=>Math.random() - 0.5
+        );
+
+
+    shuffled.forEach(answer=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.textContent = answer;
+
+        button.onclick =
+            function(){
+
+                checkAnswer(
+                    button,
+                    answer
+                );
+
+            };
+
+
+        answers.appendChild(button);
+
+    });
+
+
+    startTimer();
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer(){
+
+    timer =
+        setInterval(()=>{
+
+            time--;
+
+            document.getElementById("timer")
+                .textContent = time;
+
+
+            if(time <= 0){
+
+                clearInterval(timer);
+
+                timeOut();
+
+            }
+
+        },1000);
+
+}
+
+
+/* =====================================================
+   TIME OUT
+===================================================== */
+
+function timeOut(){
+
+    disableAnswers();
+
+    streak = 0;
+
+    loseLife();
+
+
+    setTimeout(()=>{
+
+        if(lives > 0)
+            nextQuestion();
+
+    },900);
+
+}
+
+
+/* =====================================================
+   CHECK ANSWER
+===================================================== */
+
+function checkAnswer(
+    button,
+    answer
+){
+
+    clearInterval(timer);
+
+
+    const question =
+        quizQuestions[questionIndex];
+
+
+    disableAnswers();
+
+
+    if(answer === question.c){
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        score++;
+
+        streak++;
+
+        bestStreak =
+            Math.max(
+                bestStreak,
+                streak
+            );
+
+
+        /*
+           Normal reward
+        */
+
+        totalXP += 10;
+
+        totalCoins += 5;
+
+
+        /*
+           STREAK BONUS
+        */
+
+        if(streak === 3){
+
+            totalXP += 15;
+
+            totalCoins += 10;
+
+            showPopup(
+                "🔥 3 STREAK!",
+                "+15 Bonus XP and +10 Coins"
+            );
+
+        }
+
+
+        if(streak === 5){
+
+            totalXP += 30;
+
+            totalCoins += 20;
+
+            showPopup(
+                "🔥🔥 SUPER STREAK!",
+                "+30 Bonus XP and +20 Coins"
+            );
+
+        }
+
+    }
+
+    else{
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        document
+            .querySelectorAll(".answer")
+            .forEach(btn=>{
+
+                if(
+                    btn.textContent ===
+                    question.c
+                ){
+
+                    btn.classList.add(
+                        "correct"
+                    );
+
+                }
+
+            });
+
+
+        streak = 0;
+
+        loseLife();
+
+    }
+
+
+    saveProgress();
+
+    updateGameStats();
+
+
+    setTimeout(()=>{
+
+        if(lives > 0){
+
+            nextQuestion();
+
+        }
+
+    },1000);
+
+}
+
+
+/* =====================================================
+   DISABLE ANSWERS
+===================================================== */
+
+function disableAnswers(){
+
+    document
+        .querySelectorAll(".answer")
+        .forEach(btn=>{
+
+            btn.disabled = true;
+
+        });
+
+}
+
+
+/* =====================================================
+   LOSE LIFE
+===================================================== */
+
+function loseLife(){
+
+    lives--;
+
+    updateGameStats();
+
+}
+
+
+/* =====================================================
+   NEXT QUESTION
+===================================================== */
+
+function nextQuestion(){
+
+    questionIndex++;
+
+
+    if(questionIndex >=
+       quizQuestions.length){
+
+        finishMission();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   FINISH MISSION
+===================================================== */
+
+function finishMission(){
+
+    clearInterval(timer);
+
+
+    const won =
+        score >= 6;
+
+
+    if(won){
+
+        /*
+           Unlock next destination
+        */
+
+        if(
+            currentLevel === unlocked &&
+            unlocked < 6
+        ){
+
+            unlocked++;
+
+            localStorage.setItem(
+                "bharatUnlocked",
+                unlocked
+            );
+
+        }
+
+
+        document.getElementById(
+            "resultIcon"
+        ).textContent = "🏆";
+
+
+        document.getElementById(
+            "resultTitle"
+        ).textContent =
+            "MISSION COMPLETE!";
+
+    }
+
+    else{
+
+        document.getElementById(
+            "resultIcon"
+        ).textContent = "💥";
+
+
+        document.getElementById(
+            "resultTitle"
+        ).textContent =
+            "MISSION FAILED";
+
+    }
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent = score;
+
+
+    document.getElementById(
+        "earnedXP"
+    ).textContent = totalXP;
+
+
+    document.getElementById(
+        "earnedCoins"
+    ).textContent = totalCoins;
+
+
+    document.getElementById(
+        "bestStreak"
+    ).textContent = bestStreak;
+
+
+    document.getElementById(
+        "finalRank"
+    ).textContent = getRank();
+
+
+    saveProgress();
+
+    showScreen("result");
+
+}
+
+
+/* =====================================================
+   RESTART MISSION
+===================================================== */
+
+function restartMission(){
+
+    startMission(currentLevel);
+
+}
+
+
+/* =====================================================
+   50/50 POWERUP
+===================================================== */
+
+function useFiftyFifty(){
+
+    if(fiftyUsed)
+        return;
+
+
+    fiftyUsed = true;
+
+
+    const question =
+        quizQuestions[questionIndex];
+
+
+    const buttons =
+        [...document.querySelectorAll(
+            ".answer"
+        )];
+
+
+    const wrongButtons =
+        buttons.filter(
+            btn =>
+            btn.textContent !==
+            question.c
+        );
+
+
+    /*
+       Remove two wrong answers
+    */
+
+    wrongButtons
+        .sort(
+            ()=>Math.random()-.5
+        )
+        .slice(0,2)
+        .forEach(btn=>{
+
+            btn.style.visibility =
+                "hidden";
+
+            btn.disabled = true;
+
+        });
+
+
+    document.getElementById(
+        "fiftyBtn"
+    ).disabled = true;
+
+}
+
+
+/* =====================================================
+   EXTRA TIME
+===================================================== */
+
+function addTime(){
+
+    time += 5;
+
+    document.getElementById(
+        "timer"
+    ).textContent = time;
+
+}
+
+
+/* =====================================================
+   UPDATE GAME STATS
+===================================================== */
+
+function updateGameStats(){
+
+    document.getElementById(
+        "lives"
+    ).textContent = lives;
+
+
+    document.getElementById(
+        "coins"
+    ).textContent = totalCoins;
+
+
+    document.getElementById(
+        "xp"
+    ).textContent = totalXP;
+
+
+    document.getElementById(
+        "streak"
+    ).textContent = streak;
+
+}
+
+
+/* =====================================================
+   SAVE PROGRESS
+===================================================== */
+
+function saveProgress(){
+
+    localStorage.setItem(
+        "bharatUnlocked",
+        unlocked
+    );
+
+    localStorage.setItem(
+        "bharatXP",
+        totalXP
+    );
+
+    localStorage.setItem(
+        "bharatCoins",
+        totalCoins
+    );
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+function showPopup(
+    title,
+    text
+){
+
+    document.getElementById(
+        "popupTitle"
+    ).textContent = title;
+
+
+    document.getElementById(
+        "popupText"
+    ).textContent = text;
+
+
+    document.getElementById(
+        "popup"
+    ).style.display = "flex";
+
+}
+
+
+function closePopup(){
+
+    document.getElementById(
+        "popup"
+    ).style.display = "none";
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updateMapStats();
+
+</script>
+
+</body>
+</html>
